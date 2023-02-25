@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{%  block title %} Edicion de bodegas dinámicas {% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <h2>Edición de bodega</h2>
+      <div class="card">
+        <div class="card-body">
+          <form action="/editStore/" method="POST"> {% csrf_token %}
+            <div class="form-group py-2">
+              <input type="text" id="txtCode" name="txtCode" value="{{store.code}}" class="form-control" placeholder="Código de Bodega SAP" minlength="3" maxlength="6" readonly required>
+            </div>
+            <div class="form-group py-2">
+              <input type="text" id="txtName" name="txtName" value="{{store.name}}" class="form-control" placeholder="Nombre de la bodega" maxlength="100" required>
+            </div>
+            <div class="form-group py-1">
+              <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+{% endblock %}

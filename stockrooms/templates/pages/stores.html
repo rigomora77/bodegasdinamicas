@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{%  block title %} Consultas de bodegas dinámicas {% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+    <h2>Gestión de bodegas</h2>
+      <div class="card">
+        <div class="card-body">
+          <form action="/addStore/" method="POST"> {% csrf_token %}
+            <div class="form-group py-2">
+              <input type="text" id="txtCode" name="txtCode" class="form-control" placeholder="Código de Bodega SAP" minlength="3" maxlength="6" required>
+            </div>
+            <div class="form-group py-2">
+              <input type="text" id="txtName" name="txtName" class="form-control" placeholder="Nombre de la bodega" maxlength="100" required>
+            </div>
+            <div class="form-group py-1">
+              <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+    <h1>Listado de Bodegas Dinamicas</h1>
+    <div class="table-responsive py-2">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Codigo SAP</th>
+            <th>Nombre Bodega</th>
+            <th colspan="2">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in stockrooms %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{s.code}}</td>
+            <td>{{s.name}}</td>
+            <td><a href="/storeEdition/{{s.code}}" class="btn btn-info">Editar</a></td>
+            <td><a href="/eraseStore/{{s.code}}" class="btn btn-danger">Eliminar</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

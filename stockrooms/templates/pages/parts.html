@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{%  block title %} Consultas de repuestos {% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+    <h2>Gestión de repuestos</h2>
+      <div class="card">
+        <div class="card-body">
+          <form action="/addPart/" method="POST"> {% csrf_token %}
+            <div class="form-group py-2">
+              <input type="text" id="txtCodeSap" name="txtCodeSap" class="form-control" placeholder="Código de SAP" minlength="6" maxlength="20" required>
+            </div>
+            <div class="form-group py-2">
+              <input type="text" id="txtCodeSup" name="txtCodeSup" class="form-control" placeholder="Código del suplidor" minlength="6" maxlength="20" required>
+            </div>
+            <div class="form-group py-2">
+              <input type="text" id="txtNamePart" name="txtNamePart" class="form-control" placeholder="Descripción del repuesto" maxlength="200" required>
+            </div>
+            <div class="form-group py-1">
+              <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+    <h1>Listado de Repuestos</h1>
+    <div class="table-responsive py-2">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Codigo SAP</th>
+            <th>Codigo Suplidor</th>
+            <th>Descripción del Repuesto</th>
+            <th colspan="2">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in parts %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{p.sap_code}}</td>
+            <td>{{p.sup_code}}</td>
+            <td>{{p.description}}</td>
+            <td><a href="/partEdition/{{p.sap_code}}" class="btn btn-info">Editar</a></td>
+            <td><a href="/erasePart/{{p.sap_code}}" class="btn btn-danger">Eliminar</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{%  block title %} Edición de repuestos {% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <h2>Edición de repuestos</h2>
+      <div class="card">
+        <div class="card-body">
+          <form action="/editPart/" method="POST"> {% csrf_token %}
+            <div class="form-group py-2">
+              <input type="text" id="txtSapCode" name="txtSapCode" value="{{part.sap_code}}" class="form-control" placeholder="Código de Bodega SAP" minlength="6" maxlength="20" readonly required>
+            </div>
+            <div class="form-group py-2">
+              <input type="text" id="txtSupCode" name="txtSupCode" value="{{part.sup_code}}" class="form-control" placeholder="Código del fabricante" minlength="6" maxlength="20" readonly required>
+            </div>
+            <div class="form-group py-2">
+              <input type="text" id="txtNamePart" name="txtNamePart" value="{{part.description}}" class="form-control" placeholder="Descripción del repuesto" maxlength="200" required>
+            </div>
+            <div class="form-group py-1">
+              <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+{% endblock %}

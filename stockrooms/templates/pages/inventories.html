@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{%  block title %} Consultas de inventarios {% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+    <h2>Gestión de inventarios</h2>
+      <div class="card">
+        <div class="card-body">
+          <form action="/addInventory/" method="POST"> {% csrf_token %}
+            <div class="form-group py-2">
+              <input type="number" id="nmbQty" name="nmbQty" class="form-control" placeholder="Cantidad">
+            </div>
+            <div class="form-group py-2">
+              <input type="text" id="txtCodeSap" name="txtCodeSap" class="form-control" placeholder="Código SAP" minlength="6" maxlength="20" required>
+            </div>
+            <div class="form-group py-2">
+              <input type="text" id="txtCode" name="txtCode" class="form-control" placeholder="Código de la bodega" minlength="3" maxlength="10" required>
+            </div>
+            <div class="form-group py-2">
+              <input type="number" id="nmbMin" name="nmbMin" class="form-control" placeholder="Minimo" required>
+            </div>
+            <div class="form-group py-2">
+              <input type="number" id="nmbOrder" name="nmbOrder" class="form-control" placeholder="Reorden" required>
+            </div>
+            <div class="form-group py-2">
+              <input type="number" id="nmbMax" name="nmbMax" class="form-control" placeholder="Maximo" required>
+            </div>
+            <div class="form-group py-1">
+              <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+    <h1>Listado de inventarios</h1>
+    <div class="table-responsive py-2">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Cant</th>
+            <th>Codigo SAP</th>
+            <th>Codigo Suplidor</th>
+            <th>Descripción del Repuesto</th>
+            <th>Codigo Bodega</th>
+            <th>Nombre Bodega</th>
+            <th>Minimo</th>
+            <th>Reorden</th>
+            <th>Maximo</th>
+            <th colspan="2">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in inventories %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.qty}}</td>
+            <td>{{i.part_id}}</td>
+            <td>{{i.part.sup_code}}</td>
+            <td>{{i.part.description}}</td>
+            <td>{{i.store_id}}</td>
+            <td>{{i.store.name}}</td>
+            <td>{{i.min}}</td>
+            <td>{{i.order}}</td>
+            <td>{{i.max}}</td>
+            <td><a href="/inventoryEdition/{{i.id}}" class="btn btn-info">Editar</a></td>
+            <td><a href="/eraseInventory/{{i.id}}" class="btn btn-danger">Eliminar</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

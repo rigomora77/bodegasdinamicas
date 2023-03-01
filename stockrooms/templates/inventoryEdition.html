@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{%  block title %} Edición de repuestos de Bodegas {% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <h2>Edición de repuestos en Bodegas</h2>
+      <div class="card">
+        <div class="card-body">
+          <form action="/editInventory/" method="POST"> {% csrf_token %}
+            <div class="form-group py-2">
+              <input type="number" id="nmbId" name="nmbId" value="{{inventory.id}}" class="form-control" placeholder="ID del repuesto" readonly required>
+            </div>
+            <div class="form-group py-2">
+              <input type="number" id="nmbQty" name="nmbQty" value="{{inventory.qty}}"  class="form-control" placeholder="Cantidad">
+            </div>
+            <div class="form-group py-2">
+              <input type="text" id="txtCodeSap" name="txtCodeSap" value="{{inventory.part_id}}"  class="form-control" placeholder="Código SAP" minlength="6" maxlength="20" required>
+            </div>
+            <div class="form-group py-2">
+              <input type="text" id="txtCode" name="txtCode" class="form-control" value="{{inventory.store_id}}" placeholder="Código de la bodega" minlength="3" maxlength="10" required>
+            </div>
+            <div class="form-group py-2">
+              <input type="number" id="nmbMin" name="nmbMin" class="form-control" value="{{inventory.min}}" placeholder="Minimo" required>
+            </div>
+            <div class="form-group py-2">
+              <input type="number" id="nmbOrder" name="nmbOrder" class="form-control" value="{{inventory.order}}" placeholder="Reorden" required>
+            </div>
+            <div class="form-group py-2">
+              <input type="number" id="nmbMax" name="nmbMax" class="form-control" value="{{inventory.max}}" placeholder="Maximo" required>
+            </div>
+            <div class="form-group py-1">
+              <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+{% endblock %}

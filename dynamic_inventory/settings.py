@@ -1,4 +1,5 @@
 from pathlib import Path
+from decouple import config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -9,12 +10,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8xs$13&u&974@w&*m7-rufxlq&fpnwh%9nb$chrx13t3!fg7o)'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool, default=True)
 
-ALLOWED_HOSTS = ['dilarceapp.com']
+ALLOWED_HOSTS = ['dilarceapp.com', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['https://dilarceapp.com']
 
 
@@ -67,10 +68,10 @@ WSGI_APPLICATION = 'dynamic_inventory.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dynamic_inventory',
-        'USER': 'rmora',
-        'PASSWORD': 'pYpoKe7zp/r+xi-O',
-        'HOST': '34.139.205.187',
+        'NAME': config('MYSQL_NAME'),
+        'USER': config('MYSQL_USER'),
+        'PASSWORD': config('MYSQL_PASSWORD'),
+        'HOST': config('MYSQL_HOST'),
         'PORT': '3306',
     }
 }
